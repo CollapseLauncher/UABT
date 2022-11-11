@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using UABT.TypeTree;
+﻿using Hi3Helper.UABT.TypeTree;
+using System.Collections.Generic;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public class SerializedType
     {

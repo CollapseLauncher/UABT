@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public static class SevenZipHelper
     {

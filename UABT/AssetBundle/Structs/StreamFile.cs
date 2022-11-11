@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public class StreamFile
     {

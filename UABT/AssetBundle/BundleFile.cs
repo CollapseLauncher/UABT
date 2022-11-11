@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UABT.Binary;
-using UABT.LZ4;
+using Hi3Helper.UABT.Binary;
+using Hi3Helper.UABT.LZ4;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public class BundleFile
     {

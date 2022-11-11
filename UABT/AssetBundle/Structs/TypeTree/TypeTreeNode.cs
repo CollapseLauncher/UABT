@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UABT.TypeTree
+namespace Hi3Helper.UABT.TypeTree
 {
     public class TypeTreeNode
     {

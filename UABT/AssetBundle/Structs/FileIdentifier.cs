@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public class FileIdentifier
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using UABT.Binary;
+using Hi3Helper.UABT.Binary;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     internal static class AssetBundle
     {

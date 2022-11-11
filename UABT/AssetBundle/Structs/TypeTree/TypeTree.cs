@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using UABT.Binary;
+using Hi3Helper.UABT.Binary;
 
-namespace UABT.TypeTree
+namespace Hi3Helper.UABT.TypeTree
 {
     public static class TypeTreeHelper
     {

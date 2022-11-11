@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public static class CommonString
     {

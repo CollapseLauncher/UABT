@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UABT.LZ4
+namespace Hi3Helper.UABT.LZ4
 {
     public class LZ4DecoderStream : Stream
     {

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using UABT.Binary;
-using UABT.TypeTree;
-using UABT.UABT.AssetBundle.Structs;
+using Hi3Helper.UABT.Binary;
+using Hi3Helper.UABT.TypeTree;
 
-namespace UABT
+namespace Hi3Helper.UABT
 {
     public class SerializedFile
     {
@@ -49,13 +48,36 @@ namespace UABT
 
         public List<AssetInfo> assetinfolist;
 
-        public SerializedFile(string fullName, EndianBinaryReader readeri)
+        public SerializedFile(Stream readeri)
         {
-            readeri.BaseStream.CopyTo(reader.BaseStream);
-            reader.Position = 0L;
+            DoReadSerializedFiles(new EndianBinaryReader(readeri));
+        }
+
+        public SerializedFile(string fullName, Stream readeri)
+        {
             this.fullName = fullName;
             fileName = Path.GetFileName(fullName);
             upperFileName = fileName.ToUpper();
+            DoReadSerializedFiles(new EndianBinaryReader(readeri));
+        }
+
+        public SerializedFile(EndianBinaryReader readeri)
+        {
+            DoReadSerializedFiles(readeri);
+        }
+
+        public SerializedFile(string fullName, EndianBinaryReader readeri)
+        {
+            this.fullName = fullName;
+            fileName = Path.GetFileName(fullName);
+            upperFileName = fileName.ToUpper();
+            DoReadSerializedFiles(readeri);
+        }
+
+        private void DoReadSerializedFiles(EndianBinaryReader readeri)
+        {
+            readeri.BaseStream.CopyTo(reader.BaseStream);
+            reader.Position = 0L;
             try
             {
                 header = new SerializedFileHeader();
@@ -366,6 +388,27 @@ namespace UABT
             }
             return -1L;
         }
+
+        public byte[] GetDataFirstOrDefaultByName(string name)
+        {
+            long fileID = assetinfolist.Where(x => Path.GetFileName(x.path) == name).FirstOrDefault().pPtr.pathID;
+            return m_Objects.Where(x => x.m_PathID == fileID).FirstOrDefault().data;
+        }
+
+
+        /*
+        public long GetPathIDByName(string name)
+        {
+            foreach (AssetInfo item in assetinfolist)
+            {
+                if (Path.GetFileName(item.path) == name)
+                {
+                    return item.pPtr.pathID;
+                }
+            }
+            return -1L;
+        }
+        */
 
         private void SetVersion(string stringVersion)
         {

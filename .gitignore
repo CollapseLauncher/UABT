@@ -1,0 +1,11 @@
+*bin*
+*obj*
+*build/*
+.vs/*
+*.user
+packages/*
+
+CollapseLauncher/Deps/*
+CollapseLauncher/Invoker/*
+*.psd
+InstallerProp/Output/*

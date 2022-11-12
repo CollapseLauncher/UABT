@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Hi3Helper.UABT.Binary;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Hi3Helper.UABT.Binary;
 
 namespace Hi3Helper.UABT.TypeTree
 {

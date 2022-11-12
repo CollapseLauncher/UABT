@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Hi3Helper.UABT
 {
@@ -56,6 +57,15 @@ namespace Hi3Helper.UABT
                 b.Add(a.ToString());
             }
             return b;
+        }
+
+        /// <summary>
+        /// TextAsset to string
+        /// </summary>
+        /// <returns></returns>
+        public SpanLineEnumerator GetStringEnumeration()
+        {
+            return text.AsSpan().EnumerateLines();
         }
     }
 }

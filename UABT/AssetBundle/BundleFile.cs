@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Hi3Helper.UABT.Binary;
+using Hi3Helper.UABT.LZ4;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Hi3Helper.UABT.Binary;
-using Hi3Helper.UABT.LZ4;
 
 namespace Hi3Helper.UABT
 {

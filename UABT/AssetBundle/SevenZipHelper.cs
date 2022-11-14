@@ -33,16 +33,6 @@ namespace Hi3Helper.UABT
             return memoryStream;
         }
 
-        public static MemoryStream StreamCompress(MemoryStream inStream)
-        {
-            Encoder encoder = new Encoder();
-            inStream.Seek(0L, SeekOrigin.Begin);
-            MemoryStream memoryStream = new MemoryStream();
-            encoder.Code(inStream, memoryStream, 0L, 0L, null);
-            memoryStream.Position = 0L;
-            return memoryStream;
-        }
-
         public static void StreamDecompress(Stream inStream, Stream outStream, long inSize, long outSize)
         {
             Decoder decoder = new Decoder();
@@ -54,11 +44,6 @@ namespace Hi3Helper.UABT
             decoder.SetDecoderProperties(array);
             inSize -= 5;
             decoder.Code(inStream, outStream, inSize, outSize, null);
-        }
-
-        public static void StreamCompress(Stream instream, Stream outStream)
-        {
-            new Encoder().Code(instream, outStream, 0L, 0L, null);
         }
     }
 }

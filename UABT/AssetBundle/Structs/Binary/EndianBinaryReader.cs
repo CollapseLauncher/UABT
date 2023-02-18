@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Hi3Helper.UABT.Binary
 {
@@ -117,6 +118,18 @@ namespace Hi3Helper.UABT.Binary
                 return BitConverter.ToUInt64(a64, 0);
             }
             return base.ReadDouble();
+        }
+
+        public override string ReadString()
+        {
+            a16 = ReadBytes(2);
+            if (endian == EndianType.BigEndian)
+            {
+                Array.Reverse(a16);
+            }
+            ushort count = BitConverter.ToUInt16(a16);
+            ReadOnlySpan<byte> strSpan = ReadBytes(count);
+            return Encoding.UTF8.GetString(strSpan);
         }
     }
 }

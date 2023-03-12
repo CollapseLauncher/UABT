@@ -39,5 +39,4 @@
         Switch = 38,
         NoTarget = -2
     }
-
 }

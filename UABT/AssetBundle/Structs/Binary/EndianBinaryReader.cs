@@ -26,8 +26,8 @@ namespace Hi3Helper.UABT.Binary
             }
         }
 
-        public EndianBinaryReader(Stream stream, EndianType endian = EndianType.BigEndian)
-            : base(stream)
+        public EndianBinaryReader(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
+            : base(stream, Encoding.UTF8, leaveOpen)
         {
             this.endian = endian;
         }
@@ -118,6 +118,13 @@ namespace Hi3Helper.UABT.Binary
                 return BitConverter.ToUInt64(a64, 0);
             }
             return base.ReadDouble();
+        }
+
+        public string ReadString8BitLength()
+        {
+            byte count = ReadByte();
+            ReadOnlySpan<byte> strSpan = ReadBytes(count);
+            return Encoding.UTF8.GetString(strSpan);
         }
 
         public override string ReadString()

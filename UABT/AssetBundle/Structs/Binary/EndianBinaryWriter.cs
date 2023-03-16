@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Hi3Helper.UABT.Binary
 {
@@ -25,8 +26,8 @@ namespace Hi3Helper.UABT.Binary
             }
         }
 
-        public EndianBinaryWriter(Stream stream, EndianType endian = EndianType.BigEndian)
-            : base(stream)
+        public EndianBinaryWriter(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
+            : base(stream, Encoding.UTF8, leaveOpen)
         {
             this.endian = endian;
         }

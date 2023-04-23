@@ -87,6 +87,28 @@ namespace Hi3Helper.UABT.Binary
             return base.ReadUInt32();
         }
 
+        private ulong ToTarget(int tagBit)
+        {
+            byte code = base.ReadByte();
+            int offsetRead = 0;
+            ulong value = code & (((ulong)1 << (7 - tagBit)) - 1);
+
+            if ((code & (1 << (7 - tagBit))) != 0)
+            {
+                do
+                {
+                    if ((value >> (sizeof(ulong) * 8 - 7)) != 0) return 0;
+                    code = base.ReadByte();
+                    value = (value << 7) | (code & (((ulong)1 << 7) - 1));
+                    offsetRead++;
+                }
+                while ((code & (1 << 7)) != 0);
+            }
+            return value;
+        }
+
+        public ulong ReadUInt64VarInt() => ToTarget(0);
+
         public override ulong ReadUInt64()
         {
             if (endian == EndianType.BigEndian)

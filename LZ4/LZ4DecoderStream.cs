@@ -85,12 +85,10 @@ namespace Hi3Helper.UABT.LZ4
             }
         }
 
-#nullable disable
         public LZ4DecoderStream(Stream input, long inputLength = long.MaxValue)
         {
             Reset(input, inputLength);
         }
-#nullable enable
 
         public void Reset(Stream input, long inputLength = long.MaxValue)
         {

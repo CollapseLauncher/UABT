@@ -45,6 +45,7 @@ namespace Hi3Helper.UABT
             return text;
         }
 
+#if NET6_0_OR_GREATER
         /// <summary>
         /// TextAsset to string
         /// </summary>
@@ -67,5 +68,6 @@ namespace Hi3Helper.UABT
         {
             return text.AsSpan().EnumerateLines();
         }
+#endif
     }
 }

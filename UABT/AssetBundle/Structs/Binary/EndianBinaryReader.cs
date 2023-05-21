@@ -123,7 +123,11 @@ namespace Hi3Helper.UABT.Binary
         public string ReadString8BitLength()
         {
             byte count = ReadByte();
+#if NET6_0_OR_GREATER
             ReadOnlySpan<byte> strSpan = ReadBytes(count);
+#else
+            byte[] strSpan = ReadBytes(count);
+#endif
             return Encoding.UTF8.GetString(strSpan);
         }
 
@@ -134,8 +138,13 @@ namespace Hi3Helper.UABT.Binary
             {
                 Array.Reverse(a16);
             }
+#if NET6_0_OR_GREATER
             ushort count = BitConverter.ToUInt16(a16);
             ReadOnlySpan<byte> strSpan = ReadBytes(count);
+#else
+            ushort count = BitConverter.ToUInt16(a16, 0);
+            byte[] strSpan = ReadBytes(count);
+#endif
             return Encoding.UTF8.GetString(strSpan);
         }
     }

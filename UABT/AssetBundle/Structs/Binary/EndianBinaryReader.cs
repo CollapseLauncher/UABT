@@ -39,7 +39,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a16 = ReadBytes(2);
                 Array.Reverse(a16);
-                return HexTool.BytesToInt16Unsafe(a16, 0);
+                return BitConverter.ToInt16(a16, 0);
             }
             return base.ReadInt16();
         }
@@ -50,7 +50,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a32 = ReadBytes(4);
                 Array.Reverse(a32);
-                return HexTool.BytesToInt32Unsafe(a32, 0);
+                return BitConverter.ToInt32(a32, 0);
             }
             return base.ReadInt32();
         }
@@ -61,7 +61,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a64 = ReadBytes(8);
                 Array.Reverse(a64);
-                return HexTool.BytesToInt64Unsafe(a64, 0);
+                return BitConverter.ToInt64(a64, 0);
             }
             return base.ReadInt64();
         }
@@ -72,7 +72,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a16 = ReadBytes(2);
                 Array.Reverse(a16);
-                return HexTool.BytesToUInt16Unsafe(a16, 0);
+                return BitConverter.ToUInt16(a16, 0);
             }
             return base.ReadUInt16();
         }
@@ -83,7 +83,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a32 = ReadBytes(4);
                 Array.Reverse(a32);
-                return HexTool.BytesToUInt32Unsafe(a32, 0);
+                return BitConverter.ToUInt32(a32, 0);
             }
             return base.ReadUInt32();
         }
@@ -116,7 +116,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a64 = ReadBytes(8);
                 Array.Reverse(a64);
-                return HexTool.BytesToUInt64Unsafe(a64, 0);
+                return BitConverter.ToUInt64(a64, 0);
             }
             return base.ReadUInt64();
         }
@@ -127,7 +127,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a32 = ReadBytes(4);
                 Array.Reverse(a32);
-                return HexTool.BytesToFloatUnsafe(a32, 0);
+                return BitConverter.ToSingle(a32, 0);
             }
             return base.ReadSingle();
         }
@@ -138,7 +138,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 a64 = ReadBytes(8);
                 Array.Reverse(a64);
-                return HexTool.BytesToDoubleUnsafe(a64, 0);
+                return BitConverter.ToDouble(a64, 0);
             }
             return base.ReadDouble();
         }
@@ -157,7 +157,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 Array.Reverse(a16);
             }
-            ushort count = HexTool.BytesToUInt16Unsafe(a16);
+            ushort count = BitConverter.ToUInt16(a16);
             ReadOnlySpan<byte> strSpan = ReadBytes(count);
             return Encoding.UTF8.GetString(strSpan);
         }

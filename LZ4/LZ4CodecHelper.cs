@@ -303,8 +303,6 @@ namespace Hi3Helper.UABT.LZ4
                     num11 += 4;
                     num11 -= dECODER_TABLE_[num2 - num11];
                     Copy4(dst, num11, num2);
-                    num2 = num2;
-                    num11 = num11;
                 }
                 else
                 {
@@ -417,8 +415,6 @@ namespace Hi3Helper.UABT.LZ4
                         num15 += 4;
                         num15 -= dECODER_TABLE_[num3 - num15];
                         Copy4(dst, num15, num3);
-                        num3 = num3;
-                        num15 = num15;
                     }
                     else
                     {

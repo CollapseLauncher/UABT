@@ -229,16 +229,12 @@ namespace Hi3Helper.UABT
         {
             unityVersion = stringVersion;
             string[] array = Regex.Replace(stringVersion, "\\d", "",
-#if NET7_0_OR_GREATER
                 RegexOptions.NonBacktracking |
-#endif
                 RegexOptions.Compiled)
                 .Split('.', StringSplitOptions.RemoveEmptyEntries);
             buildType = new BuildType(array[0]);
             string[] source = Regex.Replace(stringVersion, "\\D", ".",
-#if NET7_0_OR_GREATER
                 RegexOptions.NonBacktracking |
-#endif
                 RegexOptions.Compiled)
                 .Split('.', StringSplitOptions.RemoveEmptyEntries);
             version = source.Select(int.Parse).ToArray();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hi3Helper.Data;
+using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -33,15 +35,27 @@ namespace Hi3Helper.UABT.Binary
             return "";
         }
 
-        public static string ReadStringToNull(this BinaryReader reader)
+        public static string ReadStringToNull(this BinaryReader reader, int bufferSize = 1 << 10)
         {
-            List<byte> list = new List<byte>();
-            byte item;
-            while (reader.BaseStream.Position != reader.BaseStream.Length && (item = reader.ReadByte()) != 0)
+            byte[] buffer = ArrayPool<byte>.Shared.Rent(bufferSize);
+
+            try
             {
-                list.Add(item);
+                byte item;
+                int count = 0;
+                while (reader.BaseStream.Position != reader.BaseStream.Length && (item = reader.ReadByte()) != 0)
+                {
+                    if (count > bufferSize)
+                        throw new IndexOutOfRangeException($"The string has the size that's more than allowed limit for the buffer: {ConverterTool.SummarizeSizeSimple(bufferSize)}");
+
+                    buffer[count++] = item;
+                }
+                return Encoding.UTF8.GetString(buffer.AsSpan(0, count));
             }
-            return Encoding.UTF8.GetString(list.ToArray());
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
         }
 
         public static Quaternion ReadQuaternion(this BinaryReader reader)

@@ -37,8 +37,7 @@ namespace Hi3Helper.UABT
 
         private void Load(EndianBinaryReader bundleReader)
         {
-            string a;
-            if ((a = bundleReader.ReadStringToNull()) == "UnityFS")
+            if (bundleReader.ReadStringToNull() == "UnityFS")
             {
                 int num = bundleReader.ReadInt32();
                 versionPlayer = bundleReader.ReadStringToNull();

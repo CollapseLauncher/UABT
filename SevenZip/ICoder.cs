@@ -1,6 +1,7 @@
 // ICoder.h
 
 using System;
+using System.IO;
 
 namespace SevenZip
 {
@@ -57,7 +58,7 @@ namespace SevenZip
         /// <exception cref="SevenZip.DataErrorException">
         /// if input stream is not valid
         /// </exception>
-        void Code(System.IO.Stream inStream, System.IO.Stream outStream,
+        void Code(Stream inStream, Stream outStream,
             Int64 inSize, Int64 outSize, ICodeProgress progress);
     };
 

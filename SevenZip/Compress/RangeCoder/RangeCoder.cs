@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace SevenZip.Compression.RangeCoder
 {
     class Decoder
@@ -6,9 +8,9 @@ namespace SevenZip.Compression.RangeCoder
         public uint Range;
         public uint Code;
         // public Buffer.InBuffer Stream = new Buffer.InBuffer(1 << 16);
-        public System.IO.Stream Stream;
+        public Stream Stream;
 
-        public void Init(System.IO.Stream stream)
+        public void Init(Stream stream)
         {
             // Stream.Init(stream);
             Stream = stream;

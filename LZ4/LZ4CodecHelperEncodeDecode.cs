@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hi3Helper.UABT.LZ4
+﻿namespace Hi3Helper.UABT.LZ4
 {
     public static partial class LZ4CodecHelper
     {

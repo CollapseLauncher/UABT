@@ -42,7 +42,7 @@ namespace Hi3Helper.UABT.Binary
             {
                 byte item;
                 int count = 0;
-                while (reader.BaseStream.Position != reader.BaseStream.Length && (item = reader.ReadByte()) != 0)
+                while ((item = reader.ReadByte()) != 0)
                 {
                     if (count > bufferSize)
                         throw new IndexOutOfRangeException($"The string has the size that's more than allowed limit for the buffer: {ConverterTool.SummarizeSizeSimple(bufferSize)}");

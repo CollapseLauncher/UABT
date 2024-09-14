@@ -32,7 +32,7 @@ namespace Hi3Helper.UABT
             writer.WriteAlignedString(text);
             writer.Position = 0;
             byte[] data = new byte[writer.BaseStream.Length];
-            writer.BaseStream.Read(data, 0, data.Length);
+            _ = writer.BaseStream.Read(data, 0, data.Length);
             return data;
         }
 

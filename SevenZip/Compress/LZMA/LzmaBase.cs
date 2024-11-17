@@ -1,5 +1,7 @@
 // LzmaBase.cs
 
+// Resharper disable all
+
 namespace SevenZip.Compression.LZMA
 {
     internal abstract class Base

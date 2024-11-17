@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+// ReSharper disable all
+
 namespace Hi3Helper.UABT
 {
     public class SerializedFile

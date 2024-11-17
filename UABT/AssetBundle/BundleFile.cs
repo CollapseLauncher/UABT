@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+// Resharper disable all
+
 namespace Hi3Helper.UABT
 {
     public class BundleFile

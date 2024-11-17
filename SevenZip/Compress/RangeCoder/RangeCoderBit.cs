@@ -1,3 +1,5 @@
+// Resharper disable all
+
 namespace SevenZip.Compression.RangeCoder
 {
     struct BitDecoder

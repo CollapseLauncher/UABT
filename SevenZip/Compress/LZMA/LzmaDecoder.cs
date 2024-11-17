@@ -5,6 +5,8 @@ using SevenZip.Compression.RangeCoder;
 using System;
 using System.IO;
 
+// Resharper disable all
+
 namespace SevenZip.Compression.LZMA
 {
     public class Decoder : ICoder, ISetDecoderProperties // ,System.IO.Stream

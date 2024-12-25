@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Hi3Helper.UABT.Binary
 {
-    public class EndianBinaryReader : BinaryReader
+    public partial class EndianBinaryReader : BinaryReader
     {
         private const int _stackallocMax = 4 << 10;
         public EndianType endian;

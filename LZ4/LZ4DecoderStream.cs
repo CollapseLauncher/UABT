@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Hi3Helper.UABT.LZ4
 {
-    public class LZ4DecoderStream : Stream
+    public partial class LZ4DecoderStream : Stream
     {
         private enum DecodePhase
         {

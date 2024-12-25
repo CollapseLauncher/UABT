@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hi3Helper.UABT.Binary
 {
-    public class EndianBinaryWriter : BinaryWriter
+    public partial class EndianBinaryWriter : BinaryWriter
     {
         public EndianType endian;
 

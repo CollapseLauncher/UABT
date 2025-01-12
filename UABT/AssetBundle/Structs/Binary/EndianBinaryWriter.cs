@@ -1,18 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+// ReSharper disable IdentifierTypo
 
 namespace Hi3Helper.UABT.Binary
 {
-    public partial class EndianBinaryWriter : BinaryWriter
+    public class EndianBinaryWriter(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
+        : BinaryWriter(stream, Encoding.UTF8, leaveOpen)
     {
-        public EndianType endian;
+        public EndianType Endian = endian;
 
-        private byte[] a16 = new byte[2];
+        private byte[] _a16 = new byte[2];
 
-        private byte[] a32 = new byte[4];
+        private byte[] _a32 = new byte[4];
 
-        private byte[] a64 = new byte[8];
+        private byte[] _a64 = new byte[8];
 
         public long Position
         {
@@ -26,19 +28,13 @@ namespace Hi3Helper.UABT.Binary
             }
         }
 
-        public EndianBinaryWriter(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
-            : base(stream, Encoding.UTF8, leaveOpen)
-        {
-            this.endian = endian;
-        }
-
         public override void Write(short a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a16 = BitConverter.GetBytes(a);
-                Array.Reverse(a16);
-                Write(a16);
+                _a16 = BitConverter.GetBytes(a);
+                Array.Reverse(_a16);
+                Write(_a16);
             }
             else
             {
@@ -48,11 +44,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(int a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a32 = BitConverter.GetBytes(a);
-                Array.Reverse(a32);
-                Write(a32);
+                _a32 = BitConverter.GetBytes(a);
+                Array.Reverse(_a32);
+                Write(_a32);
             }
             else
             {
@@ -62,11 +58,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(long a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a64 = BitConverter.GetBytes(a);
-                Array.Reverse(a64);
-                Write(a64);
+                _a64 = BitConverter.GetBytes(a);
+                Array.Reverse(_a64);
+                Write(_a64);
             }
             else
             {
@@ -76,11 +72,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(ushort a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a16 = BitConverter.GetBytes(a);
-                Array.Reverse(a16);
-                Write(a16);
+                _a16 = BitConverter.GetBytes(a);
+                Array.Reverse(_a16);
+                Write(_a16);
             }
             else
             {
@@ -90,11 +86,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(uint a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a32 = BitConverter.GetBytes(a);
-                Array.Reverse(a32);
-                Write(a32);
+                _a32 = BitConverter.GetBytes(a);
+                Array.Reverse(_a32);
+                Write(_a32);
             }
             else
             {
@@ -104,11 +100,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(ulong a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a64 = BitConverter.GetBytes(a);
-                Array.Reverse(a64);
-                Write(a64);
+                _a64 = BitConverter.GetBytes(a);
+                Array.Reverse(_a64);
+                Write(_a64);
             }
             else
             {
@@ -118,11 +114,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(float a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a32 = BitConverter.GetBytes(a);
-                Array.Reverse(a32);
-                Write(a32);
+                _a32 = BitConverter.GetBytes(a);
+                Array.Reverse(_a32);
+                Write(_a32);
             }
             else
             {
@@ -132,11 +128,11 @@ namespace Hi3Helper.UABT.Binary
 
         public override void Write(double a)
         {
-            if (endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                a64 = BitConverter.GetBytes(a);
-                Array.Reverse(a64);
-                Write(a64);
+                _a64 = BitConverter.GetBytes(a);
+                Array.Reverse(_a64);
+                Write(_a64);
             }
             else
             {

@@ -2,6 +2,8 @@
 
 using System;
 using System.IO;
+// ReSharper disable All
+// ReSharper disable InvalidXmlDocComment
 
 namespace SevenZip
 {

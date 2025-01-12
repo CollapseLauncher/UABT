@@ -98,7 +98,7 @@ namespace Hi3Helper.UABT
                 }
                 if (m_FileEndianess == EndianType.LittleEndian)
                 {
-                    reader.endian = EndianType.LittleEndian;
+                    reader.Endian = EndianType.LittleEndian;
                 }
                 if (header.m_Version >= 7)
                 {

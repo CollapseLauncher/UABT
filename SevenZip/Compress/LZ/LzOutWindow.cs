@@ -1,6 +1,7 @@
 // LzOutWindow.cs
 
 using System.IO;
+// ReSharper disable All
 
 namespace SevenZip.Compression.LZ
 {

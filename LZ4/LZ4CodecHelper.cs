@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable All
 
 namespace Hi3Helper.UABT.LZ4
 {

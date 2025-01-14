@@ -2,10 +2,11 @@
 using System.IO;
 using System.Text;
 // ReSharper disable IdentifierTypo
+// ReSharper disable PartialTypeWithSinglePart
 
 namespace Hi3Helper.UABT.Binary
 {
-    public class EndianBinaryWriter(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
+    public sealed partial class EndianBinaryWriter(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
         : BinaryWriter(stream, Encoding.UTF8, leaveOpen)
     {
         public EndianType Endian = endian;

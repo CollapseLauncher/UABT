@@ -5,10 +5,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 // ReSharper disable IdentifierTypo
 // ReSharper disable UnusedMember.Global
+// ReSharper disable PartialTypeWithSinglePart
 
 namespace Hi3Helper.UABT.Binary
 {
-    public class EndianBinaryReader(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
+    public sealed partial class EndianBinaryReader(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
         : BinaryReader(stream, Encoding.UTF8, leaveOpen)
     {
         private const int        StackallocMax = 4 << 10;

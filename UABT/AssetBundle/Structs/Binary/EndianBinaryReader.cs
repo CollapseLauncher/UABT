@@ -30,7 +30,7 @@ namespace Hi3Helper.UABT.Binary
         public override short ReadInt16()
         {
             Span<byte> buffer = stackalloc byte[2];
-            base.BaseStream.ReadAtLeast(buffer, 2);
+            BaseStream.ReadAtLeast(buffer, 2);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadInt16BigEndian(buffer)
                 : BinaryPrimitives.ReadInt16LittleEndian(buffer);
@@ -39,7 +39,7 @@ namespace Hi3Helper.UABT.Binary
         public override int ReadInt32()
         {
             Span<byte> buffer = stackalloc byte[4];
-            base.BaseStream.ReadAtLeast(buffer, 4);
+            BaseStream.ReadAtLeast(buffer, 4);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadInt32BigEndian(buffer)
                 : BinaryPrimitives.ReadInt32LittleEndian(buffer);
@@ -48,7 +48,7 @@ namespace Hi3Helper.UABT.Binary
         public override long ReadInt64()
         {
             Span<byte> buffer = stackalloc byte[8];
-            base.BaseStream.ReadAtLeast(buffer, 8);
+            BaseStream.ReadAtLeast(buffer, 8);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadInt64BigEndian(buffer)
                 : BinaryPrimitives.ReadInt64LittleEndian(buffer);
@@ -57,7 +57,7 @@ namespace Hi3Helper.UABT.Binary
         public Int128 ReadInt128()
         {
             Span<byte> buffer = stackalloc byte[16];
-            base.BaseStream.ReadAtLeast(buffer, 16);
+            BaseStream.ReadAtLeast(buffer, 16);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadInt128BigEndian(buffer)
                 : BinaryPrimitives.ReadInt128LittleEndian(buffer);
@@ -66,7 +66,7 @@ namespace Hi3Helper.UABT.Binary
         public override ushort ReadUInt16()
         {
             Span<byte> buffer = stackalloc byte[2];
-            base.BaseStream.ReadAtLeast(buffer, 2);
+            BaseStream.ReadAtLeast(buffer, 2);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadUInt16BigEndian(buffer)
                 : BinaryPrimitives.ReadUInt16LittleEndian(buffer);
@@ -75,7 +75,7 @@ namespace Hi3Helper.UABT.Binary
         public override uint ReadUInt32()
         {
             Span<byte> buffer = stackalloc byte[4];
-            base.BaseStream.ReadAtLeast(buffer, 4);
+            BaseStream.ReadAtLeast(buffer, 4);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadUInt32BigEndian(buffer)
                 : BinaryPrimitives.ReadUInt32LittleEndian(buffer);
@@ -84,7 +84,7 @@ namespace Hi3Helper.UABT.Binary
         public override ulong ReadUInt64()
         {
             Span<byte> buffer = stackalloc byte[8];
-            base.BaseStream.ReadAtLeast(buffer, 8);
+            BaseStream.ReadAtLeast(buffer, 8);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadUInt64BigEndian(buffer)
                 : BinaryPrimitives.ReadUInt64LittleEndian(buffer);
@@ -93,7 +93,7 @@ namespace Hi3Helper.UABT.Binary
         public UInt128 ReadUInt128()
         {
             Span<byte> buffer = stackalloc byte[16];
-            base.BaseStream.ReadAtLeast(buffer, 16);
+            BaseStream.ReadAtLeast(buffer, 16);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadUInt128BigEndian(buffer)
                 : BinaryPrimitives.ReadUInt128LittleEndian(buffer);
@@ -102,7 +102,7 @@ namespace Hi3Helper.UABT.Binary
         public override float ReadSingle()
         {
             Span<byte> buffer = stackalloc byte[4];
-            base.BaseStream.ReadAtLeast(buffer, 4);
+            BaseStream.ReadAtLeast(buffer, 4);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadSingleBigEndian(buffer)
                 : BinaryPrimitives.ReadSingleLittleEndian(buffer);
@@ -111,7 +111,7 @@ namespace Hi3Helper.UABT.Binary
         public override double ReadDouble()
         {
             Span<byte> buffer = stackalloc byte[8];
-            base.BaseStream.ReadAtLeast(buffer, 8);
+            BaseStream.ReadAtLeast(buffer, 8);
 
             return Endian == EndianType.BigEndian ? BinaryPrimitives.ReadDoubleBigEndian(buffer)
                 : BinaryPrimitives.ReadDoubleLittleEndian(buffer);
@@ -119,7 +119,7 @@ namespace Hi3Helper.UABT.Binary
 
         public string ReadString8BitLength()
         {
-            sbyte len = (sbyte)base.BaseStream.ReadByte();
+            sbyte len = (sbyte)BaseStream.ReadByte();
             return ReadStringFromLen(len);
         }
 
@@ -134,7 +134,7 @@ namespace Hi3Helper.UABT.Binary
             Span<byte> buffer = len > StackallocMax ? new byte[len] : stackalloc byte[len];
             string returnStr;
 
-            base.BaseStream.ReadAtLeast(buffer, len);
+            BaseStream.ReadAtLeast(buffer, len);
             fixed (sbyte* bufferByte = MemoryMarshal.Cast<byte, sbyte>(buffer))
                 returnStr = new string(bufferByte, 0, len);
 

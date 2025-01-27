@@ -8,12 +8,12 @@ namespace Hi3Helper.UABT
     {
         public static List<AssetInfo> GetFileList(byte[] data)
         {
-            EndianBinaryReader endianBinaryReader = new EndianBinaryReader(new MemoryStream(data), EndianType.LittleEndian);
+            EndianBinaryReader endianBinaryReader = new(new MemoryStream(data), EndianType.LittleEndian);
             BinaryReaderExtensions.ReadAlignedString(endianBinaryReader);
             int num = endianBinaryReader.ReadInt32();
             endianBinaryReader.Position += num * 12;
             int num2 = endianBinaryReader.ReadInt32();
-            List<AssetInfo> list = new List<AssetInfo>(num2);
+            List<AssetInfo> list = new(num2);
             for (int i = 0; i < num2; i++)
             {
                 string path = BinaryReaderExtensions.ReadAlignedString(endianBinaryReader);

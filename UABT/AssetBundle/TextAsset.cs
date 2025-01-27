@@ -16,7 +16,7 @@ namespace Hi3Helper.UABT
         /// <param name="data"></param>
         public TextAsset(byte[] data)
         {
-            EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(data), EndianType.LittleEndian);
+            EndianBinaryReader reader = new(new MemoryStream(data), EndianType.LittleEndian);
             name = reader.ReadAlignedString();
             text = reader.ReadAlignedString();
         }
@@ -27,7 +27,7 @@ namespace Hi3Helper.UABT
         /// <returns></returns>
         public byte[] GetBytes()
         {
-            EndianBinaryWriter writer = new EndianBinaryWriter(new MemoryStream(), EndianType.LittleEndian);
+            EndianBinaryWriter writer = new(new MemoryStream(), EndianType.LittleEndian);
             writer.WriteAlignedString(name);
             writer.WriteAlignedString(text);
             writer.Position = 0;
@@ -52,7 +52,7 @@ namespace Hi3Helper.UABT
         /// <returns></returns>
         public List<string> GetStringList()
         {
-            List<string> b = new List<string>();
+            List<string> b = new();
             foreach (ReadOnlySpan<char> a in text.AsSpan().EnumerateLines())
             {
                 b.Add(a.ToString());

@@ -8,10 +8,10 @@ namespace Hi3Helper.UABT
     {
         public static MemoryStream StreamDecompress(MemoryStream inStream)
         {
-            Decoder decoder = new Decoder();
+            Decoder decoder = new();
             inStream.Seek(0L, SeekOrigin.Begin);
-            MemoryStream memoryStream = new MemoryStream();
-            byte[] array = new byte[5];
+            MemoryStream memoryStream = new();
+            byte[]       array        = new byte[5];
             if (inStream.Read(array, 0, 5) != 5)
             {
                 throw new Exception("input .lzma is too short");
@@ -35,8 +35,8 @@ namespace Hi3Helper.UABT
 
         public static void StreamDecompress(Stream inStream, Stream outStream, long inSize, long outSize)
         {
-            Decoder decoder = new Decoder();
-            byte[] array = new byte[5];
+            Decoder decoder = new();
+            byte[]  array   = new byte[5];
             if (inStream.Read(array, 0, 5) != 5)
             {
                 throw new Exception("input .lzma is too short");

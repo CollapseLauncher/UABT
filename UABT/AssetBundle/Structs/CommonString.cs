@@ -4,7 +4,7 @@ namespace Hi3Helper.UABT
 {
     public static class CommonString
     {
-        public static readonly Dictionary<int, string> StringBuffer = new Dictionary<int, string>
+        public static readonly Dictionary<int, string> StringBuffer = new()
         {
             { 0, "AABB" },
             { 5, "AnimationClip" },

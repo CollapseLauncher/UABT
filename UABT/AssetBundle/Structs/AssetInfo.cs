@@ -1,9 +1,13 @@
-﻿namespace Hi3Helper.UABT
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+namespace Hi3Helper.UABT
 {
     public struct AssetInfo
     {
-        public string path;
+        public string Path;
 
-        public PPtr pPtr;
+        public PPtr PPtr;
     }
 }

@@ -1,17 +1,21 @@
-﻿namespace Hi3Helper.UABT
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+namespace Hi3Helper.UABT
 {
     public class SerializedFileHeader
     {
-        public uint m_MetadataSize;
+        public uint MMetadataSize;
 
-        public uint m_FileSize;
+        public uint MFileSize;
 
-        public uint m_Version;
+        public uint MVersion;
 
-        public uint m_DataOffset;
+        public uint MDataOffset;
 
-        public byte m_Endianess;
+        public byte MEndianess;
 
-        public byte[] m_Reserved;
+        public byte[] MReserved;
     }
 }

@@ -86,7 +86,7 @@ namespace Hi3Helper.UABT
                 case 3:
                     {
                         byte[] array2 = new byte[num2];
-                        LZ4CodecHelper.Decode(array, 0, array.Length, array2, 0, num2);
+                        Lz4CodecHelper.Decode(array, 0, array.Length, array2, 0, num2);
                         stream = new MemoryStream(array2);
                         break;
                     }
@@ -99,33 +99,33 @@ namespace Hi3Helper.UABT
             {
                 array3[i] = new BlockInfo
                 {
-                    uncompressedSize = endianBinaryReader.ReadUInt32(),
-                    compressedSize = endianBinaryReader.ReadUInt32(),
-                    flag = endianBinaryReader.ReadInt16()
+                    UncompressedSize = endianBinaryReader.ReadUInt32(),
+                    CompressedSize = endianBinaryReader.ReadUInt32(),
+                    Flag = endianBinaryReader.ReadInt16()
                 };
             }
-            array3.Sum((BlockInfo x) => x.uncompressedSize);
+            array3.Sum((BlockInfo x) => x.UncompressedSize);
             Stream stream2 = new MemoryStream();
             BlockInfo[] array4 = array3;
             foreach (BlockInfo blockInfo in array4)
             {
-                switch (blockInfo.flag & 0x3F)
+                switch (blockInfo.Flag & 0x3F)
                 {
                     default:
                         {
-                            byte[] array7 = bundleReader.ReadBytes((int)blockInfo.compressedSize);
+                            byte[] array7 = bundleReader.ReadBytes((int)blockInfo.CompressedSize);
                             stream2.Write(array7, 0, array7.Length);
                             break;
                         }
                     case 1:
-                        SevenZipHelper.StreamDecompress(bundleReader.BaseStream, stream2, blockInfo.compressedSize, blockInfo.uncompressedSize);
+                        SevenZipHelper.StreamDecompress(bundleReader.BaseStream, stream2, blockInfo.CompressedSize, blockInfo.UncompressedSize);
                         break;
                     case 2:
                     case 3:
                         {
-                            byte[] array5 = bundleReader.ReadBytes((int)blockInfo.compressedSize);
-                            byte[] array6 = new byte[blockInfo.uncompressedSize];
-                            int count = LZ4CodecHelper.Decode(array5, 0, array5.Length, array6, 0, (int)blockInfo.uncompressedSize);
+                            byte[] array5 = bundleReader.ReadBytes((int)blockInfo.CompressedSize);
+                            byte[] array6 = new byte[blockInfo.UncompressedSize];
+                            int count = Lz4CodecHelper.Decode(array5, 0, array5.Length, array6, 0, (int)blockInfo.UncompressedSize);
                             stream2.Write(array6, 0, count);
                             break;
                         }
@@ -141,11 +141,11 @@ namespace Hi3Helper.UABT
                     long position2 = endianBinaryReader.ReadInt64();
                     long num6 = endianBinaryReader.ReadInt64();
                     endianBinaryReader.ReadInt32();
-                    streamFile.fileName = Path.GetFileName(endianBinaryReader.ReadStringToNull());
-                    streamFile.stream = new MemoryStream();
+                    streamFile.FileName = Path.GetFileName(endianBinaryReader.ReadStringToNull());
+                    streamFile.Stream = new MemoryStream();
                     stream2.Position = position2;
-                    stream2.CopyTo(streamFile.stream, (int)num6);
-                    streamFile.stream.Position = 0L;
+                    stream2.CopyTo(streamFile.Stream, (int)num6);
+                    streamFile.Stream.Position = 0L;
                     fileList.Add(streamFile);
                 }
             }

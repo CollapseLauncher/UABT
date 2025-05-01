@@ -1,19 +1,23 @@
-﻿namespace Hi3Helper.UABT
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+namespace Hi3Helper.UABT
 {
     public class ObjectInfo
     {
-        public uint byteStart;
+        public uint ByteStart;
 
-        public uint byteSize;
+        public uint ByteSize;
 
-        public int typeID;
+        public int TypeID;
 
-        public int classID;
+        public int ClassID;
 
-        public byte[] data;
+        public byte[] Data;
 
-        public long m_PathID;
+        public long MPathID;
 
-        public SerializedType serializedType;
+        public SerializedType SerializedType;
     }
 }

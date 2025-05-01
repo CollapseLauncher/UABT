@@ -3,6 +3,7 @@ using System;
 using System.Buffers;
 using System.IO;
 using System.Text;
+// ReSharper disable IdentifierTypo
 
 namespace Hi3Helper.UABT.Binary
 {
@@ -24,14 +25,15 @@ namespace Hi3Helper.UABT.Binary
 
         public static string ReadAlignedString(this BinaryReader reader, int length)
         {
-            if (length > 0 && length <= reader.BaseStream.Length - reader.BaseStream.Position)
+            if (length <= 0 || length > reader.BaseStream.Length - reader.BaseStream.Position)
             {
-                byte[] bytes = reader.ReadBytes(length);
-                string @string = Encoding.UTF8.GetString(bytes);
-                reader.AlignStream(4);
-                return @string;
+                return "";
             }
-            return "";
+
+            byte[] bytes   = reader.ReadBytes(length);
+            string @string = Encoding.UTF8.GetString(bytes);
+            reader.AlignStream(4);
+            return @string;
         }
 
         public static string ReadStringToNull(this BinaryReader reader, int bufferSize = 1 << 10)
@@ -55,78 +57,6 @@ namespace Hi3Helper.UABT.Binary
             {
                 ArrayPool<byte>.Shared.Return(buffer);
             }
-        }
-
-        public static Quaternion ReadQuaternion(this BinaryReader reader)
-        {
-            Quaternion result = default;
-            result.X = reader.ReadSingle();
-            result.Y = reader.ReadSingle();
-            result.Z = reader.ReadSingle();
-            result.W = reader.ReadSingle();
-            return result;
-        }
-
-        public static Vector2 ReadVector2(this BinaryReader reader)
-        {
-            Vector2 result = default;
-            result.X = reader.ReadSingle();
-            result.Y = reader.ReadSingle();
-            return result;
-        }
-
-        public static Vector3 ReadVector3(this BinaryReader reader)
-        {
-            Vector3 result = default;
-            result.X = reader.ReadSingle();
-            result.Y = reader.ReadSingle();
-            result.Z = reader.ReadSingle();
-            return result;
-        }
-
-        public static Vector4 ReadVector4(this BinaryReader reader)
-        {
-            Vector4 result = default;
-            result.X = reader.ReadSingle();
-            result.Y = reader.ReadSingle();
-            result.Z = reader.ReadSingle();
-            result.W = reader.ReadSingle();
-            return result;
-        }
-
-        private static T[] ReadArray<T>(Func<T> del, int length)
-        {
-            T[] array = new T[length];
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = del();
-            }
-            return array;
-        }
-
-        public static int[] ReadInt32Array(this BinaryReader reader, int length)
-        {
-            return ReadArray(reader.ReadInt32, length);
-        }
-
-        public static uint[] ReadUInt32Array(this BinaryReader reader, int length)
-        {
-            return ReadArray(reader.ReadUInt32, length);
-        }
-
-        public static float[] ReadSingleArray(this BinaryReader reader, int length)
-        {
-            return ReadArray(reader.ReadSingle, length);
-        }
-
-        public static Vector2[] ReadVector2Array(this BinaryReader reader, int length)
-        {
-            return ReadArray(reader.ReadVector2, length);
-        }
-
-        public static Vector4[] ReadVector4Array(this BinaryReader reader, int length)
-        {
-            return ReadArray(reader.ReadVector4, length);
         }
     }
 }

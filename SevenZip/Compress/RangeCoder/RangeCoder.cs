@@ -2,11 +2,11 @@ using System.IO;
 
 namespace SevenZip.Compression.RangeCoder
 {
-    class Decoder
+    internal class Decoder
     {
-        public const uint kTopValue = (1 << 24);
-        public uint Range;
-        public uint Code;
+        public const uint KTopValue = 1 << 24;
+        public       uint Range;
+        public       uint Code;
         // public Buffer.InBuffer Stream = new Buffer.InBuffer(1 << 16);
         public Stream Stream;
 
@@ -27,32 +27,13 @@ namespace SevenZip.Compression.RangeCoder
             Stream = null;
         }
 
-        public void CloseStream()
-        {
-            Stream.Close();
-        }
-
         public void Normalize()
         {
-            while (Range < kTopValue)
+            while (Range < KTopValue)
             {
                 Code = (Code << 8) | (byte)Stream.ReadByte();
                 Range <<= 8;
             }
-        }
-
-        public void Normalize2()
-        {
-            if (Range < kTopValue)
-            {
-                Code = (Code << 8) | (byte)Stream.ReadByte();
-                Range <<= 8;
-            }
-        }
-
-        public uint GetThreshold(uint total)
-        {
-            return Code / (Range /= total);
         }
 
         public void Decode(uint start, uint size, uint total)
@@ -82,34 +63,17 @@ namespace SevenZip.Compression.RangeCoder
                 code -= range & (t - 1);
                 result = (result << 1) | (1 - t);
 
-                if (range < kTopValue)
+                if (range >= KTopValue)
                 {
-                    code = (code << 8) | (byte)Stream.ReadByte();
-                    range <<= 8;
+                    continue;
                 }
+
+                code  =   (code << 8) | (byte)Stream.ReadByte();
+                range <<= 8;
             }
             Range = range;
             Code = code;
             return result;
-        }
-
-        public uint DecodeBit(uint size0, int numTotalBits)
-        {
-            uint newBound = (Range >> numTotalBits) * size0;
-            uint symbol;
-            if (Code < newBound)
-            {
-                symbol = 0;
-                Range = newBound;
-            }
-            else
-            {
-                symbol = 1;
-                Code -= newBound;
-                Range -= newBound;
-            }
-            Normalize();
-            return symbol;
         }
 
         // ulong GetProcessedSize() {return Stream.GetProcessedSize(); }

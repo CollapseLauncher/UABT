@@ -1,16 +1,8 @@
-﻿namespace Hi3Helper.UABT
+﻿// ReSharper disable IdentifierTypo
+namespace Hi3Helper.UABT
 {
-    public class BuildType
+    public class BuildType(string type)
     {
-        private string buildType;
-
-        public bool IsAlpha => buildType == "a";
-
-        public bool IsPatch => buildType == "p";
-
-        public BuildType(string type)
-        {
-            buildType = type;
-        }
+        public bool IsPatch => type == "p";
     }
 }

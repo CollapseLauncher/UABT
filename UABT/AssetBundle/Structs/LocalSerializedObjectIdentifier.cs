@@ -1,9 +1,13 @@
-﻿namespace Hi3Helper.UABT
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+namespace Hi3Helper.UABT
 {
     public class LocalSerializedObjectIdentifier
     {
-        public int localSerializedFileIndex;
+        public int LocalSerializedFileIndex;
 
-        public long localIdentifierInFile;
+        public long LocalIdentifierInFile;
     }
 }

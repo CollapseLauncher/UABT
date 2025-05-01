@@ -1,23 +1,27 @@
-﻿namespace Hi3Helper.UABT.TypeTree
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+namespace Hi3Helper.UABT.TypeTree
 {
     public class TypeTreeNode
     {
-        public string m_Type;
+        public string MType;
 
-        public string m_Name;
+        public string MName;
 
-        public int m_ByteSize;
+        public int MByteSize;
 
-        public int m_Index;
+        public int MIndex;
 
-        public int m_IsArray;
+        public int MIsArray;
 
-        public int m_Version;
+        public int MVersion;
 
-        public int m_MetaFlag;
+        public int MMetaFlag;
 
-        public int m_Level;
+        public int MLevel;
 
-        public int m_childrenCount;
+        public int MChildrenCount;
     }
 }

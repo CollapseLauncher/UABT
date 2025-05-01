@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+// ReSharper disable IdentifierTypo
 
 namespace Hi3Helper.UABT.Binary
 {

@@ -1,4 +1,5 @@
-﻿namespace Hi3Helper.UABT
+﻿// ReSharper disable IdentifierTypo
+namespace Hi3Helper.UABT
 {
     public enum EndianType
     {

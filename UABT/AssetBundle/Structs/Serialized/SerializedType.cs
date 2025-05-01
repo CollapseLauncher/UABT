@@ -1,20 +1,24 @@
-﻿using Hi3Helper.UABT.TypeTree;
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+using Hi3Helper.UABT.TypeTree;
 using System.Collections.Generic;
 
 namespace Hi3Helper.UABT
 {
     public class SerializedType
     {
-        public int classID;
+        public int ClassID;
 
-        public bool m_IsStrippedType;
+        public bool MIsStrippedType;
 
-        public short m_ScriptTypeIndex = -1;
+        public short MScriptTypeIndex = -1;
 
-        public List<TypeTreeNode> m_Nodes;
+        public List<TypeTreeNode> MNodes;
 
-        public byte[] m_ScriptID;
+        public byte[] MScriptID;
 
-        public byte[] m_OldTypeHash;
+        public byte[] MOldTypeHash;
     }
 }

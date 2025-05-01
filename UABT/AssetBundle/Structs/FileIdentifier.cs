@@ -1,15 +1,19 @@
-﻿using System;
+﻿// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
+using System;
 
 namespace Hi3Helper.UABT
 {
     public class FileIdentifier
     {
-        public Guid guid;
+        public Guid Guid;
 
-        public int type;
+        public int Type;
 
-        public string pathName;
+        public string PathName;
 
-        public string fileName;
+        public string FileName;
     }
 }

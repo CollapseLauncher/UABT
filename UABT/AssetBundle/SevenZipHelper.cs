@@ -1,6 +1,7 @@
 ﻿using SevenZip.Compression.LZMA;
 using System;
 using System.IO;
+// ReSharper disable IdentifierTypo
 
 namespace Hi3Helper.UABT
 {

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+// ReSharper disable StringLiteralTypo
+// ReSharper disable IdentifierTypo
 
 namespace Hi3Helper.UABT
 {

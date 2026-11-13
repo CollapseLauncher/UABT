@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Buffers;
 using System.Buffers.Binary;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 // ReSharper disable IdentifierTypo
 // ReSharper disable UnusedMember.Global
 // ReSharper disable PartialTypeWithSinglePart
+
+#nullable enable
 
 namespace Hi3Helper.UABT.Binary
 {
     public sealed partial class EndianBinaryReader(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)
         : BinaryReader(stream, Encoding.UTF8, leaveOpen)
     {
-        private const int        StackallocMax = 4 << 10;
+        private const int        StackallocMax = 512;
         public        EndianType Endian        = endian;
 
         public long Position
@@ -131,14 +133,23 @@ namespace Hi3Helper.UABT.Binary
 
         private unsafe string ReadStringFromLen(int len)
         {
-            Span<byte> buffer = len > StackallocMax ? new byte[len] : stackalloc byte[len];
-            string returnStr;
+            if (len == 0)
+                return string.Empty;
 
-            BaseStream.ReadAtLeast(buffer, len);
-            fixed (sbyte* bufferByte = MemoryMarshal.Cast<byte, sbyte>(buffer))
-                returnStr = new string(bufferByte, 0, len);
+            byte[]? bufferRent = len > StackallocMax
+                ? ArrayPool<byte>.Shared.Rent(len)
+                : null;
 
-            return returnStr;
+            try
+            {
+                Span<byte> buffer = (bufferRent ?? stackalloc byte[len])[..len];
+                int        read   = BaseStream.ReadAtLeast(buffer, len);
+                return Encoding.UTF8.GetString(buffer[..read]);
+            }
+            finally
+            {
+                if (bufferRent != null) ArrayPool<byte>.Shared.Return(bufferRent);
+            }
         }
     }
 }

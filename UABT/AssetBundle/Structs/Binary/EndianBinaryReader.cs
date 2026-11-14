@@ -7,8 +7,6 @@ using System.Text;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable PartialTypeWithSinglePart
 
-#nullable enable
-
 namespace Hi3Helper.UABT.Binary
 {
     public sealed partial class EndianBinaryReader(Stream stream, EndianType endian = EndianType.BigEndian, bool leaveOpen = false)

@@ -20,13 +20,7 @@ namespace Hi3Helper.UABT.LZ4
 
         private Stream input;
 
-        private const int DecBufLen = 65536;
-
-        private const int DecBufMask = 65535;
-
-        private const int InBufLen = 128;
-
-        private byte[] decodeBuffer = new byte[65664];
+        private readonly byte[] decodeBuffer = new byte[65664];
 
         private int decodeBufferPos;
 

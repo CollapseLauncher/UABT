@@ -5,9 +5,9 @@ namespace Hi3Helper.UABT.LZ4
 {
     public static partial class Lz4CodecHelper
     {
-        private static readonly int[] DECODER_TABLE_32 = new int[8] { 0, 3, 2, 3, 0, 0, 0, 0 };
+        private static readonly int[] DECODER_TABLE_32 = [0, 3, 2, 3, 0, 0, 0, 0];
 
-        private static readonly int[] DECODER_TABLE_64 = new int[8] { 0, 0, 0, -1, 0, 1, 2, 3 };
+        private static readonly int[] DECODER_TABLE_64 = [0, 0, 0, -1, 0, 1, 2, 3];
 
         internal static void CheckArguments(byte[] input, int inputOffset, ref int inputLength, byte[] output, int outputOffset, ref int outputLength)
         {

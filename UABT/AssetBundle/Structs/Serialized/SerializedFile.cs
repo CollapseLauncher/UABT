@@ -239,7 +239,7 @@ namespace Hi3Helper.UABT
                 RegexOptions.NonBacktracking |
                 RegexOptions.Compiled)
                 .Split('.', StringSplitOptions.RemoveEmptyEntries);
-            version = source.Select(int.Parse).ToArray();
+            version = [.. source.Select(int.Parse)];
         }
 
         private SerializedType ReadSerializedType()
@@ -264,7 +264,7 @@ namespace Hi3Helper.UABT
             }
             if (m_EnableTypeTree)
             {
-                List<TypeTreeNode> list = new List<TypeTreeNode>();
+                List<TypeTreeNode> list = [];
                 if (header.MVersion >= 12 || header.MVersion == 10)
                 {
                     ReadTypeTree5(list);

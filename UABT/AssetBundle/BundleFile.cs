@@ -14,7 +14,7 @@ namespace Hi3Helper.UABT
 
         public string versionEngine;
 
-        public List<StreamFile> fileList = new List<StreamFile>();
+        public List<StreamFile> fileList = [];
 
         public BundleFile()
         {

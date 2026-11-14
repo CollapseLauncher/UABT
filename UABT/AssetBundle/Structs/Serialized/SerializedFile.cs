@@ -12,7 +12,7 @@ namespace Hi3Helper.UABT
 {
     public class SerializedFile
     {
-        public EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream());
+        public EndianBinaryReader reader = new(new MemoryStream());
 
         public string fullName;
 
@@ -80,11 +80,13 @@ namespace Hi3Helper.UABT
             reader.Position = 0L;
             try
             {
-                header = new SerializedFileHeader();
-                header.MMetadataSize = reader.ReadUInt32();
-                header.MFileSize = reader.ReadUInt32();
-                header.MVersion = reader.ReadUInt32();
-                header.MDataOffset = reader.ReadUInt32();
+                header               = new SerializedFileHeader
+                {
+                    MMetadataSize = reader.ReadUInt32(),
+                    MFileSize     = reader.ReadUInt32(),
+                    MVersion      = reader.ReadUInt32(),
+                    MDataOffset   = reader.ReadUInt32()
+                };
                 if (header.MVersion >= 9)
                 {
                     header.MEndianess = reader.ReadByte();
@@ -108,7 +110,7 @@ namespace Hi3Helper.UABT
                 if (header.MVersion >= 8)
                 {
                     m_TargetPlatform = (BuildTarget)reader.ReadInt32();
-                    if (!Enum.IsDefined(typeof(BuildTarget), m_TargetPlatform))
+                    if (!Enum.IsDefined(m_TargetPlatform))
                     {
                         m_TargetPlatform = BuildTarget.UnknownPlatform;
                     }
@@ -131,7 +133,7 @@ namespace Hi3Helper.UABT
                 m_Objects = new List<ObjectInfo>(num2);
                 for (int j = 0; j < num2; j++)
                 {
-                    ObjectInfo objectInfo = new ObjectInfo();
+                    ObjectInfo objectInfo = new();
                     if (header.MVersion < 14)
                     {
                         objectInfo.MPathID = reader.ReadInt32();
@@ -147,7 +149,7 @@ namespace Hi3Helper.UABT
                     if (header.MVersion < 16)
                     {
                         objectInfo.ClassID = reader.ReadUInt16();
-                        objectInfo.SerializedType = m_Types.Find((SerializedType x) => x.ClassID == objectInfo.TypeID);
+                        objectInfo.SerializedType = m_Types.Find(x => x.ClassID == objectInfo.TypeID);
                         reader.ReadUInt16();
                     }
                     else
@@ -156,7 +158,7 @@ namespace Hi3Helper.UABT
                         objectInfo.SerializedType = serializedType;
                         objectInfo.ClassID = serializedType.ClassID;
                     }
-                    if (header.MVersion == 15 || header.MVersion == 16)
+                    if (header.MVersion is 15 or 16)
                     {
                         reader.ReadByte();
                     }
@@ -168,7 +170,7 @@ namespace Hi3Helper.UABT
                     m_ScriptTypes = new List<LocalSerializedObjectIdentifier>(num3);
                     for (int k = 0; k < num3; k++)
                     {
-                        LocalSerializedObjectIdentifier localSerializedObjectIdentifier = new LocalSerializedObjectIdentifier
+                        LocalSerializedObjectIdentifier localSerializedObjectIdentifier = new()
                         {
                             LocalSerializedFileIndex = reader.ReadInt32()
                         };
@@ -188,7 +190,7 @@ namespace Hi3Helper.UABT
                 m_Externals = new List<FileIdentifier>(num4);
                 for (int l = 0; l < num4; l++)
                 {
-                    FileIdentifier fileIdentifier = new FileIdentifier();
+                    FileIdentifier fileIdentifier = new();
                     if (header.MVersion >= 6)
                     {
                         reader.ReadStringToNull();
@@ -209,7 +211,7 @@ namespace Hi3Helper.UABT
                     reader.Position = m_Objects[m].ByteStart + header.MDataOffset;
                     m_Objects[m].Data = reader.ReadBytes((int)m_Objects[m].ByteSize);
                 }
-                ObjectInfo objectInfo2 = m_Objects.Find((ObjectInfo x) => x.ClassID == 142);
+                ObjectInfo objectInfo2 = m_Objects.Find(x => x.ClassID == 142);
                 if (objectInfo2.Data != null)
                 {
                     assetinfolist = AssetBundle.GetFileList(objectInfo2.Data);
@@ -244,8 +246,10 @@ namespace Hi3Helper.UABT
 
         private SerializedType ReadSerializedType()
         {
-            SerializedType serializedType = new SerializedType();
-            serializedType.ClassID = reader.ReadInt32();
+            SerializedType serializedType = new()
+            {
+                ClassID = reader.ReadInt32()
+            };
             if (header.MVersion >= 16)
             {
                 serializedType.MIsStrippedType = reader.ReadBoolean();
@@ -265,7 +269,7 @@ namespace Hi3Helper.UABT
             if (m_EnableTypeTree)
             {
                 List<TypeTreeNode> list = [];
-                if (header.MVersion >= 12 || header.MVersion == 10)
+                if (header.MVersion is >= 12 or 10)
                 {
                     ReadTypeTree5(list);
                 }
@@ -280,7 +284,7 @@ namespace Hi3Helper.UABT
 
         private void ReadTypeTree(List<TypeTreeNode> typeTree, int depth = 0)
         {
-            TypeTreeNode typeTreeNode = new TypeTreeNode();
+            TypeTreeNode typeTreeNode = new();
             typeTree.Add(typeTreeNode);
             typeTreeNode.MLevel = depth;
             typeTreeNode.MType = reader.ReadStringToNull();
@@ -312,11 +316,11 @@ namespace Hi3Helper.UABT
             int num = reader.ReadInt32();
             int num2 = reader.ReadInt32();
             reader.Position += num * 24;
-            using BinaryReader binaryReader = new BinaryReader(new MemoryStream(reader.ReadBytes(num2)));
+            using BinaryReader binaryReader = new(new MemoryStream(reader.ReadBytes(num2)));
             reader.Position -= num * 24 + num2;
             for (int i = 0; i < num; i++)
             {
-                TypeTreeNode typeTreeNode = new TypeTreeNode();
+                TypeTreeNode typeTreeNode = new();
                 typeTree.Add(typeTreeNode);
                 typeTreeNode.MVersion = reader.ReadUInt16();
                 typeTreeNode.MLevel = reader.ReadByte();

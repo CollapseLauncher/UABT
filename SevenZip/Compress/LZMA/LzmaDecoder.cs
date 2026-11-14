@@ -13,11 +13,11 @@ namespace SevenZip.Compression.LZMA
     {
         class LenDecoder
         {
-            BitDecoder                m_Choice       = new BitDecoder();
-            BitDecoder                m_Choice2      = new BitDecoder();
+            BitDecoder                m_Choice       = new();
+            BitDecoder                m_Choice2      = new();
             readonly BitTreeDecoder[] m_LowCoder     = new BitTreeDecoder[Base.kNumPosStatesMax];
             readonly BitTreeDecoder[] m_MidCoder     = new BitTreeDecoder[Base.kNumPosStatesMax];
-            readonly BitTreeDecoder   m_HighCoder    = new BitTreeDecoder(Base.kNumHighLenBits);
+            readonly BitTreeDecoder   m_HighCoder    = new(Base.kNumHighLenBits);
             uint                      m_NumPosStates = 0;
 
             public void Create(uint numPosStates)
@@ -135,8 +135,8 @@ namespace SevenZip.Compression.LZMA
             { return m_Coders[GetState(pos, prevByte)].DecodeWithMatchByte(rangeDecoder, matchByte); }
         };
 
-        readonly OutWindow          m_OutWindow    = new OutWindow();
-        readonly RangeCoder.Decoder m_RangeDecoder = new RangeCoder.Decoder();
+        readonly OutWindow          m_OutWindow    = new();
+        readonly RangeCoder.Decoder m_RangeDecoder = new();
 
         readonly BitDecoder[] m_IsMatchDecoders    = new BitDecoder[Base.kNumStates << Base.kNumPosStatesBitsMax];
         readonly BitDecoder[] m_IsRepDecoders      = new BitDecoder[Base.kNumStates];
@@ -148,12 +148,12 @@ namespace SevenZip.Compression.LZMA
         readonly BitTreeDecoder[] m_PosSlotDecoder = new BitTreeDecoder[Base.kNumLenToPosStates];
         readonly BitDecoder[]     m_PosDecoders    = new BitDecoder[Base.kNumFullDistances - Base.kEndPosModelIndex];
 
-        readonly BitTreeDecoder m_PosAlignDecoder = new BitTreeDecoder(Base.kNumAlignBits);
+        readonly BitTreeDecoder m_PosAlignDecoder = new(Base.kNumAlignBits);
 
-        readonly LenDecoder m_LenDecoder    = new LenDecoder();
-        readonly LenDecoder m_RepLenDecoder = new LenDecoder();
+        readonly LenDecoder m_LenDecoder    = new();
+        readonly LenDecoder m_RepLenDecoder = new();
 
-        readonly LiteralDecoder m_LiteralDecoder = new LiteralDecoder();
+        readonly LiteralDecoder m_LiteralDecoder = new();
 
         uint m_DictionarySize;
         uint m_DictionarySizeCheck;
@@ -235,7 +235,7 @@ namespace SevenZip.Compression.LZMA
         {
             Init(inStream, outStream);
 
-            Base.State state = new Base.State();
+            Base.State state = new();
             state.Init();
             uint rep0 = 0, rep1 = 0, rep2 = 0, rep3 = 0;
 

@@ -4,6 +4,7 @@ using System;
 using System.IO;
 // ReSharper disable All
 // ReSharper disable InvalidXmlDocComment
+#pragma warning disable IDE0290
 
 namespace SevenZip
 {

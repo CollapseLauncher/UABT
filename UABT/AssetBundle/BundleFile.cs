@@ -2,7 +2,6 @@
 using Hi3Helper.UABT.LZ4;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 // Resharper disable all
 
@@ -22,13 +21,13 @@ namespace Hi3Helper.UABT
 
         public BundleFile(byte[] data)
         {
-            EndianBinaryReader bundleReader = new EndianBinaryReader(new MemoryStream(data));
+            EndianBinaryReader bundleReader = new(new MemoryStream(data));
             Load(bundleReader);
         }
 
         public BundleFile(Stream stream)
         {
-            EndianBinaryReader bundleReader = new EndianBinaryReader(stream);
+            EndianBinaryReader bundleReader = new(stream);
             Load(bundleReader);
         }
 
@@ -91,7 +90,7 @@ namespace Hi3Helper.UABT
                         break;
                     }
             }
-            using EndianBinaryReader endianBinaryReader = new EndianBinaryReader(stream);
+            using EndianBinaryReader endianBinaryReader = new(stream);
             endianBinaryReader.Position = 16L;
             int num4 = endianBinaryReader.ReadInt32();
             BlockInfo[] array3 = new BlockInfo[num4];
@@ -104,50 +103,48 @@ namespace Hi3Helper.UABT
                     Flag = endianBinaryReader.ReadInt16()
                 };
             }
-            array3.Sum((BlockInfo x) => x.UncompressedSize);
-            Stream stream2 = new MemoryStream();
-            BlockInfo[] array4 = array3;
+
+            using MemoryStream stream2 = new();
+            BlockInfo[]        array4  = array3;
             foreach (BlockInfo blockInfo in array4)
             {
                 switch (blockInfo.Flag & 0x3F)
                 {
                     default:
-                        {
-                            byte[] array7 = bundleReader.ReadBytes((int)blockInfo.CompressedSize);
-                            stream2.Write(array7, 0, array7.Length);
-                            break;
-                        }
+                    {
+                        byte[] array7 = bundleReader.ReadBytes((int)blockInfo.CompressedSize);
+                        stream2.Write(array7, 0, array7.Length);
+                        break;
+                    }
                     case 1:
                         SevenZipHelper.StreamDecompress(bundleReader.BaseStream, stream2, blockInfo.CompressedSize, blockInfo.UncompressedSize);
                         break;
                     case 2:
                     case 3:
-                        {
-                            byte[] array5 = bundleReader.ReadBytes((int)blockInfo.CompressedSize);
-                            byte[] array6 = new byte[blockInfo.UncompressedSize];
-                            int count = Lz4CodecHelper.Decode(array5, 0, array5.Length, array6, 0, (int)blockInfo.UncompressedSize);
-                            stream2.Write(array6, 0, count);
-                            break;
-                        }
+                    {
+                        byte[] array5 = bundleReader.ReadBytes((int)blockInfo.CompressedSize);
+                        byte[] array6 = new byte[blockInfo.UncompressedSize];
+                        int count = Lz4CodecHelper.Decode(array5, 0, array5.Length, array6, 0, (int)blockInfo.UncompressedSize);
+                        stream2.Write(array6, 0, count);
+                        break;
+                    }
                 }
             }
+
             stream2.Position = 0L;
-            using (stream2)
+            int num5 = endianBinaryReader.ReadInt32();
+            for (int k = 0; k < num5; k++)
             {
-                int num5 = endianBinaryReader.ReadInt32();
-                for (int k = 0; k < num5; k++)
-                {
-                    StreamFile streamFile = new StreamFile();
-                    long position2 = endianBinaryReader.ReadInt64();
-                    long num6 = endianBinaryReader.ReadInt64();
-                    endianBinaryReader.ReadInt32();
-                    streamFile.FileName = Path.GetFileName(endianBinaryReader.ReadStringToNull());
-                    streamFile.Stream = new MemoryStream();
-                    stream2.Position = position2;
-                    stream2.CopyTo(streamFile.Stream, (int)num6);
-                    streamFile.Stream.Position = 0L;
-                    fileList.Add(streamFile);
-                }
+                StreamFile streamFile = new();
+                long       position2  = endianBinaryReader.ReadInt64();
+                long       num6       = endianBinaryReader.ReadInt64();
+                endianBinaryReader.ReadInt32();
+                streamFile.FileName = Path.GetFileName(endianBinaryReader.ReadStringToNull());
+                streamFile.Stream   = new MemoryStream();
+                stream2.Position    = position2;
+                stream2.CopyTo(streamFile.Stream, (int)num6);
+                streamFile.Stream.Position = 0L;
+                fileList.Add(streamFile);
             }
         }
     }
